@@ -1,25 +1,24 @@
-//Require le module Express.js
-const app = require('express')();
+//Appel d'express
+app=require('express')();
 
-//Mise en place serveur HTTP qui va utiliser express
+//Création server HTTP
 const http = require('http').createServer(app);
 
-//Mise en place de socket.io en lui ajoutant le serveur HTTP en paramètre de démarrage
+//Appel de socket.io
 const io = require('socket.io')(http);
 
-//je crée la route d'accueil
-app.get('/', (req, res) => {
-   //Je récupére le contenu de mon fichier html 
-   res.sendFile(__dirname + '/index.html')
+//écoute d'évent "connection" de socket.io
+io.on('connection',(socket) =>{
+    console.log(socket.id);
+
 });
 
-//écoute d'événement de connection de socket.io
-io.on('connection', (socket) =>{
-    console.log('Socket connection OK', socket);
-})
+//Je crée la route / et je récupére mon fichier html
+app.get('/', (req, res) =>{
+    res.sendFile(__dirname + "/index.html");
+});
 
-//Réponse du serveur http sur le port définit avec un log en callback
-http.listen(3001, ()=>{
-    console.log("Server http OK!");
-} );
-
+//Appeler le server HTTP sur port 3000
+http.listen(3000, ()=>{
+ console.log("j'écoute le port 3000",);
+});
