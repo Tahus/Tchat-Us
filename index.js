@@ -18,7 +18,8 @@ io.on('connection',(socket) =>{
 
     //gestion du tchat
     socket.on("chat_message", (msg) =>{
-        console.log(msg);
+        //le message sera relayé à tous les users connectés
+        io.emit("chat_message",msg);
     })
 
 });
