@@ -52,6 +52,7 @@
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
+      //connexion au serveur socket
       const socket = io();
       window.onload = () => {
         document.querySelector("form").addEventListener("submit", (e) => {
@@ -59,7 +60,9 @@
           const name = document.querySelector("#name");
           const message = document.querySelector("#message");
 
-          console.log(name, message);
+          //envois de messages via emit(pour emmettre un message)
+          socket.emit("chat_message", {name : name.value,
+          message: message.value})
         });
       };
     </script>

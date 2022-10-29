@@ -9,7 +9,17 @@ const io = require('socket.io')(http);
 
 //écoute d'évent "connection" de socket.io
 io.on('connection',(socket) =>{
-    console.log(socket.id);
+    console.log("connexion ok");
+
+    //écoute de déconnexion
+    socket.on('disconnect', ()=>{
+        console.log("déconnexion socket");
+    });
+
+    //gestion du tchat
+    socket.on("chat_message", (msg) =>{
+        console.log(msg);
+    })
 
 });
 
