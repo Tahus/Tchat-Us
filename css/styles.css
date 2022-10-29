@@ -1,0 +1,35 @@
+
+#messages {
+    border: 1px solid black;
+    height: 90vh;
+    flex: 5;
+    padding: 10px;
+}
+
+#messages p {
+    margin: 0;
+    padding: 10;
+}
+
+
+/* Une ligne sur deux en gris */
+#messages :nth-child(odd) {
+ background-color:#aaa;
+}
+
+form {
+    display:flex;
+    padding: 10px;
+}
+
+button {
+    flex: 1;
+    padding: 10px;
+    border:none;
+    font-weight: bold;
+    background-color:#a78be8;
+}
+
+#name {
+    flex: 1;
+}

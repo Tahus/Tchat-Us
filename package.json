@@ -1,0 +1,29 @@
+{
+  "name": "tchat-us",
+  "version": "1.0.0",
+  "description": "tach appli with socket.io",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tahus/Tchat-Us.git"
+  },
+  "keywords": [
+    "node",
+    "nodejs",
+    "socket",
+    "socket.io"
+  ],
+  "author": "Tahus",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Tahus/Tchat-Us/issues"
+  },
+  "homepage": "https://github.com/Tahus/Tchat-Us#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "socket.io": "^4.5.3"
+  }
+}
