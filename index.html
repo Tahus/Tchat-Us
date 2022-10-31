@@ -4,19 +4,33 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles.css" />
     <title>Tchat'Us</title>
-
-
-
   </head>
   <body>
-    <div id="messages"></div>
-    <form>
-      <input id="name" placeholder="entrez le nom" />
-      <input id="message" placeholder="entrez le message" />
-      <button>envoyer</button>
-    </form>
+
+
+    <aside>
+      <ul id="tabs">
+        <li class="active"># Général</li>
+        <li># Entraide</li>
+        <li># Discussion</li>
+      </ul>
+    </aside>
+
+
+    <main>
+      <div id="content">
+        <div id="messages"></div>
+        <div id="writing">Tahus écrit un message</div>
+      </div>
+      
+      <form>
+        <input id="name" placeholder="entrez le nom" />
+        <input id="message" placeholder="entrez le message" />
+        <button>envoyer</button>
+      </form>
+    </main>
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
@@ -29,19 +43,21 @@
           const message = document.querySelector("#message");
 
           //envois de messages via emit (pour emmettre un message)
-          socket.emit("chat_message", {name : name.value,
-          message: message.value});
-
+          socket.emit("chat_message", {
+            name: name.value,
+            message: message.value,
+          });
 
           //Effacer les messages après l'envoies côtè émmeteur
           document.querySelector("#message").value = "";
-          
         });
 
         //écoute de l'évent de dréception des messages
-        socket.on("received_message",(msg)=>{
-          document.querySelector("#messages").innerHTML +=`<p>${msg.name} dit ${msg.message}</p>`
-        })
+        socket.on("received_message", (msg) => {
+          document.querySelector(
+            "#messages"
+          ).innerHTML += `<p>${msg.name} dit ${msg.message}</p>`;
+        });
       };
     </script>
   </body>

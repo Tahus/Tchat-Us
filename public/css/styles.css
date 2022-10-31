@@ -1,33 +1,82 @@
-#messages {
-    border: 1px solid black;
-    height: 90vh;
-    flex: 5;
-    padding: 10px;
-  }
+body{
+  display: flex;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #B1B2FF;
+}
 
-  #messages p {
-    margin: 0;
-    padding: 10;
-  }
+aside{
+  flex: 1;
+}
 
-  /* Une ligne sur deux en gris */
-  #messages :nth-child(odd) {
-    background-color: #aaa;
-  }
+main{
+  flex: 4;
+}
 
-  form {
-    display: flex;
-    padding: 10px;
-  }
+#tabs{
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
 
-  button {
-    flex: 1;
-    padding: 10px;
-    border: none;
-    font-weight: bold;
-    background-color: #a78be8;
-  }
+#tabs li{
+  padding: 10px;
+  
+}
 
-  #name {
-    flex: 1;
-  }
+#tabs li.active{
+  background-color: #97D2EC;
+  font-weight: bold;
+}
+
+#tabs li:not(.active){
+  cursor: pointer;
+}
+
+#content{
+  height: 90vh;
+  position: relative;
+}
+
+#messages{
+  height: 100%;
+  background-color: #97D2EC;
+  overflow-y: scroll;
+}
+
+#writing{
+  position: absolute;
+  bottom: 0;
+  background-color: #EEF1FF;
+  font-weight: bold
+}
+
+#messages div{
+  margin: 0;
+  padding: 10px;
+  color: white;
+}
+
+form{
+  display: flex;
+}
+
+#name, #message{
+  padding: 10px;
+  background-color: #40444b;
+  color: white;
+  border: none;
+}
+#name{
+  flex: 1;
+
+}
+#message{
+  flex: 5;
+}
+button{
+  flex: 1;
+  padding: 10px;
+  border: none;
+  background-color: #839c49;
+  color: white;
+}

@@ -3,7 +3,7 @@
 const express= require('express');
 app = express();
 
-//Chargement de path (afin de résoudre les chemins)
+//Chargement de path (afin de gérer les chemins)
 const path = require('path');
 
 //J'autorise le dossier "public"
