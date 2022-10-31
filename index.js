@@ -15,6 +15,27 @@ const http = require("http").createServer(app);
 //Appel de socket.io
 const io = require("socket.io")(http);
 
+const Sequelize= require("sequelize");
+
+//Fabrication du chemin vers le fichier sqlite
+const dbPath = path.resolve(__dirname, "tchat.sqlite");
+
+//Connection à la bdd
+const sequelize = new Sequelize("database", "username", "password", {
+    host: "localhost",
+    dialect: "sqlite",
+    logging: false,
+    storage: dbPath
+});
+
+
+//Je charge le modèle "tchat"
+const tchat = require("./Models/tchat")(sequelize, Sequelize.DataTypes);
+
+//J'effectue le chargement de ma BDD 
+tchat.sync();
+
+
 //écoute d'évent "connection" de socket.io
 io.on("connection", (socket) => {
   console.log("connexion ok");
