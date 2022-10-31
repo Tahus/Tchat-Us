@@ -1,5 +1,13 @@
-//Appel d'express
-app = require("express")();
+
+// Require express de cette manière va me permettre de pouvoir récupuérer mes ressources depuis le dossier public
+const express= require('express');
+app = express();
+
+//Chargement de path (afin de résoudre les chemins)
+const path = require('path');
+
+//J'autorise le dossier "public"
+app.use(express.static(path.join(__dirname, "public")));
 
 //Création server HTTP
 const http = require("http").createServer(app);
