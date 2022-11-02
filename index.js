@@ -1,6 +1,5 @@
 
 // Require express de cette manière va me permettre de pouvoir récupuérer mes ressources depuis le dossier public
-const { log } = require('console');
 const express= require('express');
 app = express();
 
@@ -37,6 +36,11 @@ const tchat = require("./Models/tchat")(sequelize, Sequelize.DataTypes);
 tchat.sync();
 
 
+// Je crée la route /
+app.get("/", (req, res) => {
+  res.sendFile(__dirname + "/index.html");
+});
+
 //écoute d'évent "connection" de socket.io
 io.on("connection", (socket) => {
   console.log("connexion ok");
@@ -53,6 +57,16 @@ io.on("connection", (socket) => {
     //J'entre dans la salle en question
     socket.join(room);
     console.log(socket.rooms);
+
+    //J'envoies tous les messages du salon 
+    tchat.findAll({
+      attributes: ["id", "name", "message", "room", "createdAt"],
+      where: {
+        room: room
+      }
+    }).then(list =>{
+      socket.emit("init_messages", {messages: JSON.stringify(list)});
+    });
   });
 
 
@@ -86,12 +100,6 @@ io.on("connection", (socket) => {
 });
 
   
-
-
-//Je crée la route / et je récupére mon fichier html
-app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/index.html");
-});
 
 //Appeler le server HTTP sur port 3000
 http.listen(3000, () => {

@@ -37,9 +37,7 @@ window.onload = () => {
 
   //j'écoute de l'évent de réception des messages
   socket.on("received_message", (msg) => {
-    document.querySelector(
-      "#messages"
-    ).innerHTML += `<p>${msg.name} dit ${msg.message}</p>`;
+    publishMessages(msg);
   });
 
   //j'écoute le click sur les rooms
@@ -62,12 +60,23 @@ window.onload = () => {
 
             //J'entre dans une nouvelle room
             //dataset.room me permet d'aller chercher data-room dans le fichier html ainsi le nom de la room sur la quelle j'ai clické sera automatiquement envoyé au serveur
-            socket.emit("enter_room", this.dataset.room);
-
-            
+            socket.emit("enter_room", this.dataset.room); 
         }
     })
-  })
+  });
 
-  socket.on;
+  socket.on("init_messages", msg => {
+    let data = JSON.parse(msg.messages);
+    if(data != []){
+        data.forEach(donnees => {
+            publishMessages(donnees);
+        })
+    }
+});
+
+};
+
+
+function publishMessages(msg) {
+    document.querySelector( "#messages").innerHTML += `<p>${msg.name} dit ${msg.message}</p>`;
 };
