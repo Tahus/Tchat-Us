@@ -74,11 +74,37 @@ window.onload = () => {
     }
 });
 
-};
+//J'écoute la frappe au clavier 
+document.querySelector("#message").addEventListener("input", ()=>{
+  //Je récupère le nom 
+  const name = document.querySelector("#name").value
+
+  //je récupère la room
+  const room = document.querySelector("#tabs li.active").dataset.room;
+
+  socket.emit ("typing", {
+    name: name,
+    room: room
+  })
+})
+
+  //J'écoute les messages indiquant que quelqu'un tape au clavier
+  socket.on("usertyping", msg => {
+    const writing= document.querySelector("#writing");
+
+    writing.innerHTML = `${msg.name} est entrain d'écrire...`;
+
+    setTimeout(function(){
+      writing.innerHTML=""
+    }, 6000);
+
+  });
+  
+}
 
 
 function publishMessages(msg) {
-    let created = new Date(msg.createdAt);
-    let text = `<div><p>${msg.name} <small>${created.toLocaleDateString()}</small></p> dit: ${msg.message}</p></div>`;
-    document.querySelector( "#messages").innerHTML += text ;
-};
+  let created = new Date(msg.createdAt);
+  let text = `<div><p>${msg.name} <small>${created.toLocaleDateString()}</small></p> dit: ${msg.message}</p></div>`;
+  document.querySelector( "#messages").innerHTML += text
+}

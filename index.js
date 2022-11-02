@@ -94,9 +94,12 @@ io.on("connection", (socket) => {
     }).catch (e => {
       console.log("Attention erreur:", e);
     });
-
  
   });
+  //J'écoute le message typing 
+  socket.on("typing", (msg) => {
+    socket.to(msg.room).emit("usertyping", msg);
+  })
 });
 
   
