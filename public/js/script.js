@@ -102,9 +102,9 @@ document.querySelector("#message").addEventListener("input", ()=>{
   
 }
 
-
+//Gestion de la date sur le tchat
 function publishMessages(msg) {
   let created = new Date(msg.createdAt);
   let text = `<div><p>${msg.name} <small>${created.toLocaleDateString()}</small></p> dit: ${msg.message}</p></div>`;
-  document.querySelector( "#messages").innerHTML += text
+  document.querySelector( "#messages").innerHTML += text 
 }
