@@ -96,7 +96,7 @@ io.on("connection", (socket) => {
     });
  
   });
-  //J'écoute le message typing 
+  //J'écoute le message typing
   socket.on("typing", (msg) => {
     socket.to(msg.room).emit("usertyping", msg);
   })
