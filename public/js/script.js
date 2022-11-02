@@ -78,5 +78,7 @@ window.onload = () => {
 
 
 function publishMessages(msg) {
-    document.querySelector( "#messages").innerHTML += `<p>${msg.name} dit ${msg.message}</p>`;
+    let created = new Date(msg.createdAt);
+    let text = `<div><p>${msg.name} <small>${created.toLocaleDateString()}</small></p> dit: ${msg.message}</p></div>`;
+    document.querySelector( "#messages").innerHTML += text ;
 };
