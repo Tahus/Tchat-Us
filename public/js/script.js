@@ -1,18 +1,15 @@
-
 //connexion au serveur socket
 const socket = io();
 
 //Je gère l'arrivée d'un nouveau user
-socket.on("connect", () =>{ 
-    //j'émer un message d'entrée dans la salle
-    socket.emit("enter_room", "général");
-})
+socket.on("connect", () => {
+  //j'émer un message d'entrée dans la salle
+  socket.emit("enter_room", "général");
+});
 
 window.onload = () => {
-
   //J'écoute l'évent submit
   document.querySelector("form").addEventListener("submit", (e) => {
-    
     //J'empêche le rechargement par default
     e.preventDefault();
     const name = document.querySelector("#name");
@@ -34,4 +31,21 @@ window.onload = () => {
       "#messages"
     ).innerHTML += `<p>${msg.name} dit ${msg.message}</p>`;
   });
+
+  //j'écoute le click sur les rooms
+  document.querySelectorAll("#tabs li").forEach((tab) => {
+    tab.addEventListener("click", function () {  
+        //je verifie que l'onglet de la room n'est pas actif
+        if(!this.classList.contains("active")) {
+            //Je récupère l'élément actuellement actif 
+            const actif= document.querySelector("#tabs li.active");
+            //Je désactive l'élément actif
+            actif.classList.remove("active");
+            //j'active l'élément sur lequel je clique
+            this.classList.add("active");
+        }
+    })
+  })
+
+  socket.on;
 };
