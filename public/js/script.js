@@ -43,6 +43,18 @@ window.onload = () => {
             actif.classList.remove("active");
             //j'active l'élément sur lequel je clique
             this.classList.add("active");
+            //J'efface le contenu de la zone de message quand je sors de la room
+            document.querySelector("#messages").innerHTML = "";
+
+            //Je quitte l'ancienne room sur le dataset de la room qui est active
+            //je n'oublie pas de créer leave_room côté index.js 
+            socket.emit("leave_room", actif.dataset.room);
+
+            //J'entre dans une nouvelle room
+            //dataset.room me permet d'aller chercher data-room dans le fichier html ainsi le nom de la room sur la quelle j'ai clické sera automatiquement envoyé au serveur
+            socket.emit("enter_room", this.dataset.room);
+
+            
         }
     })
   })

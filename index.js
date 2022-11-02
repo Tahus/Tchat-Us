@@ -42,6 +42,12 @@ io.on("connection", (socket) => {
   console.log("connexion ok");
 
 
+  //écoute de déconnexion (aucune information ne sera envoyé à une machine déconnectée)
+  socket.on("disconnect", () => {
+    console.log("déconnexion socket");
+  });
+
+  
   //écoute d'entrée dans les rooms
   socket.on("enter_room", (room) => {
     //J'entre dans la salle en question
@@ -50,10 +56,12 @@ io.on("connection", (socket) => {
   })
 
 
-  //écoute de déconnexion (aucune information ne sera envoyé à une machine déconnectée)
-  socket.on("disconnect", () => {
-    console.log("déconnexion socket");
-  });
+  //écoute de sortie des rooms
+  socket.on("leave_room", (room) => {
+    socket.leave(room);
+    console.log(socket.rooms);
+  })
+
 
   //gestion du tchat
   socket.on("chat_message", (msg) => {
@@ -61,6 +69,9 @@ io.on("connection", (socket) => {
     io.emit("received_message", msg);
   });
 });
+
+  
+
 
 //Je crée la route / et je récupére mon fichier html
 app.get("/", (req, res) => {
