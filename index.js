@@ -1,5 +1,6 @@
 
 // Require express de cette manière va me permettre de pouvoir récupuérer mes ressources depuis le dossier public
+const { log } = require('console');
 const express= require('express');
 app = express();
 
@@ -39,6 +40,15 @@ tchat.sync();
 //écoute d'évent "connection" de socket.io
 io.on("connection", (socket) => {
   console.log("connexion ok");
+
+
+  //écoute d'entrée dans les rooms
+  socket.on("enter_room", (room) => {
+    //J'entre dans la salle en question
+    socket.join(room);
+    console.log(socket.rooms);
+  })
+
 
   //écoute de déconnexion (aucune information ne sera envoyé à une machine déconnectée)
   socket.on("disconnect", () => {
