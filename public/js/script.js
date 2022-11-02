@@ -12,13 +12,23 @@ window.onload = () => {
   document.querySelector("form").addEventListener("submit", (e) => {
     //J'empêche le rechargement par default
     e.preventDefault();
+
+    //Je récupère le nom et le message
     const name = document.querySelector("#name");
     const message = document.querySelector("#message");
+
+    //Je récupère le nom de la room 
+    const room = document.querySelector("#tabs li.active").dataset.room;
+    //Ajout de la date de la création du message
+    const createdAt= new Date();
 
     //envois de messages via emit (pour emmettre un message)
     socket.emit("chat_message", {
       name: name.value,
       message: message.value,
+      room: room,
+      createdAt: createdAt
+
     });
 
     //j'efface les messages après l'envoies côtè émmeteur

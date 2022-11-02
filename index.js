@@ -47,26 +47,41 @@ io.on("connection", (socket) => {
     console.log("déconnexion socket");
   });
 
-  
+
   //écoute d'entrée dans les rooms
   socket.on("enter_room", (room) => {
     //J'entre dans la salle en question
     socket.join(room);
     console.log(socket.rooms);
-  })
+  });
 
 
   //écoute de sortie des rooms
   socket.on("leave_room", (room) => {
     socket.leave(room);
     console.log(socket.rooms);
-  })
+  });
 
 
   //gestion du tchat
   socket.on("chat_message", (msg) => {
-    //le message sera relayé à tous les users connectés
-    io.emit("received_message", msg);
+
+    //Stockage du message dans la bdd grâce à la méthode create de sequelize
+    //qui me permet de créer un objet dans la bdd
+    const message = tchat.create({
+      name: msg.name,
+      message: msg.message,
+      room: msg.room,
+      createdAt: msg.createdAt
+    }).then(() => {
+      //Le message est stocké, je le relaie à tous les users dans le salon correspondant
+      io.in(msg.room).emit("received_message", msg);
+
+    }).catch (e => {
+      console.log("Attention erreur:", e);
+    });
+
+ 
   });
 });
 
